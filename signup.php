@@ -1,18 +1,18 @@
 <?php
-		
+		include('functions.php');
 	//start session
 	session_start();	
 	//get username and password from $_POST
-	$name = $_POST["name"];
-	$username = $_POST["username"];
-	$password = $_POST["password"];
-	$gendr = $_POST["gender"];
-	$question = $_POST["question"];
-	$answer = $_POST["answer"];
-	$email = $_POST["email"];
-	$dob = $_POST["dob"];
-	$location = $_POST["location"];
-	$profile_pic = $_POST["profile_pic"];
+	$name = sanitizeString($_POST["name"]);
+	$username = sanitizeString($_POST["username"]);
+	$password = md5($_POST["password"]);
+	$gendr = sanitizeString($_POST["gender"]);
+	$question = sanitizeString($_POST["question"]);
+	$answer = sanitizeString($_POST["answer"]);
+	$email = sanitizeString($_POST["email"]);
+	$dob = sanitizeString($_POST["dob"]);
+	$location = sanitizeString($_POST["location"]);
+	$profile_pic = sanitizeString($_POST["profile_pic"]);
 	
 	$dbhost = "localhost";	
 	$dbuser = "root";
@@ -26,11 +26,10 @@
 	$result = mysqli_query($conn, "INSERT INTO users (`Username`, `Password`, `Name`, `email`, `dob`, `gender`, `verification_question`, `verification_answer`, `location`, `profile_pic`) VALUES ('$username','$password','$name','$emai','$dob','$gendr','$question','$answer','$location','$profile_pic')");
 	$num_of_rows = mysqli_num_rows($result);
 	//Check in the DB
-	if($num_of_rows > 0){
+	if(1){
 		//If authenticated: say hello!
-	//	$_SESSION["username"] = $username;
-	//	header("Location: feed.php");
-		//echo "Success!! Welcome ".$username;
+		$_SESSION["username"] = $username;
+		header("Location: feed.php");
 	}else{
 		//else ask to login again..	
 		echo "Invalid password! Try again!";

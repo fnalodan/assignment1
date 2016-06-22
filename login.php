@@ -5,7 +5,7 @@
 
 	//get username and password from $_POST
 	$username = $_POST["username"];
-	$password = $_POST["password"];
+	$password = md5($_POST["password"]);
 
 	$dbhost = "localhost";	
 	$dbuser = "root";
