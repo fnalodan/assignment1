@@ -24,12 +24,16 @@
 	}
 	
 	$result = mysqli_query($conn, "INSERT INTO users (`Username`, `Password`, `Name`, `email`, `dob`, `gender`, `verification_question`, `verification_answer`, `location`, `profile_pic`) VALUES ('$username','$password','$name','$emai','$dob','$gendr','$question','$answer','$location','$profile_pic')");
-	$num_of_rows = mysqli_num_rows($result);
+	
 	//Check in the DB
-	if(1){
+	if($result){
+
 		//If authenticated: say hello!
-		$_SESSION["username"] = $username;
-		header("Location: feed.php");
+	    echo "signup success";
+		echo "<br>";
+		echo "<form action='login.html'>";
+		echo "<input type='submit' value='Go to login page'>";
+		echo "</form>";
 	}else{
 		//else ask to login again..	
 		echo "Invalid password! Try again!";
